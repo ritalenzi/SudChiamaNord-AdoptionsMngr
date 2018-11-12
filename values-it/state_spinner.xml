@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="state">
+        <item>Non Attivo</item>
+        <item>Attivo</item>
+    </string-array>
+</resources>

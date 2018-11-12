@@ -7,7 +7,6 @@
     <string name="action_delete">Delete</string>
     <string name="backupSettings">Backup</string>
     <string name="loadSettings">Load</string>
-    <string name="configureSettings">Configure</string>
 
     <string name="generalError">Error</string>
     <string name="generalWarning">Warning</string>

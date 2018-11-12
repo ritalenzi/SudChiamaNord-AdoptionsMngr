@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    tools:context="it.sudchiamanord.adoptionmngr.activities.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarStyle" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_login_icon_128"
+                android:text="@string/loginButton"
+                android:id="@+id/loginButton2"
+                android:onClick="login"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_tool_icon_128"
+                android:text="@string/configureButton"
+                android:id="@+id/configureButton2"
+                android:onClick="configure"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        </TableRow-->
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarStyle" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_add_icon_128"
+                android:text="@string/addButton"
+                android:id="@+id/addButton2"
+                android:onClick="add"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_search_icon_128"
+                android:text="@string/searchButton"
+                android:id="@+id/searchButton2"
+                android:onClick="search"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarStyle" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_download_icon_128"
+                android:text="@string/downloadButton"
+                android:id="@+id/downloadButton2"
+                android:onClick="download"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/set2_upload_icon_128"
+                android:text="@string/uploadButton"
+                android:id="@+id/uploadButton2"
+                android:onClick="upload"
+                android:textSize="20sp"
+                android:background="#ffffff"
+                android:padding="5dp"
+                style="?android:attr/buttonBarButtonStyle" />
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>

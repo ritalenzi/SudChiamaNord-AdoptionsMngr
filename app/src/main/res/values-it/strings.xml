@@ -1,0 +1,169 @@
+<resources>
+    <string name="app_name">SchoolMgr</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_edit">Modifica</string>
+    <string name="action_save_changes">Salva le modifiche</string>
+    <string name="action_discard_changes">Annulla le modifiche</string>
+    <string name="action_delete">Cancella</string>
+    <string name="backupSettings">Backup</string>
+    <string name="loadSettings">Carica</string>
+    <string name="configureSettings">Configura</string>
+
+    <string name="generalError">Errore</string>
+    <string name="generalWarning">Attenzione</string>
+    <string name="generalInfo">Info</string>
+    <string name="unknown">Non nota</string>
+
+    <string name="loginUser">Numero di telefono</string>
+    <string name="loginPassword">Password</string>
+    <string name="loginRememberUserAndPassword">Ricorda</string>
+    <string name="loginButton">Entra</string>
+    <string name="nullUserAndPwMsg">Inserire nome utente e password</string>
+    <string name="wrongUser">Utente errato. Assicurati di aver registrato questo utente con il server prima di proseguire</string>
+    <string name="wrongPassword">Password errata</string>
+    <string name="successfulLogin">Login effettuato con successo</string>
+
+    <string name="searchButton">Cerca</string>
+    <string name="addButton">Nuovo</string>
+    <string name="downloadButton">Scarica</string>
+    <string name="uploadButton">Carica</string>
+    <string name="configureButton">Configura</string>
+
+    <string name="nameLabel">Nome</string>
+    <string name="firstnameLabel">Name</string>
+    <string name="secondNameLabel">Secondo Nome</string>
+    <string name="lastnameLabel">Cognome</string>
+    <string name="statusLabel">Status</string>
+    <string name="adoptedLabel">Attualmente adottato</string>
+    <string name="notAdoptedLabel">Attualmente non adottato</string>
+    <string name="unknownAdoptionStatusLabel">Adozione non nota</string>
+    <string name="adoptionsDetailsButton">DETTAGLI</string>
+    <string name="changePictureButtonLabel">CAMBIA</string>
+    <string name="deletePictureButtonLabel">CANCELLA</string>
+    <string name="birthdayLabel">Birthday</string>
+    <string name="schoolCodeLabel">Codice della Scuola</string>
+    <string name="schoolNameLabel">Nome della Scuola</string>
+    <string name="classLabel">Classe</string>
+    <string name="yearLabel">Anno</string>
+    <string name="addressLabel">Indirizzo</string>
+    <string name="cityLabel">Citt&#224;</string>
+    <string name="phoneLabel">Telefono</string>
+    <string name="jobLabel">Lavoro</string>
+    <string name="dadInfoLabel">Pap&#224;</string>
+    <string name="momInfoLabel">Mmamma</string>
+    <string name="creatorLabel">Info sulla creazionde del record</string>
+    <string name="createdByLabel">Creato da</string>
+    <string name="createdOnDateLabel">Data di creazione</string>
+    <string name="notesLabel">Note</string>
+    <string name="discardChangesDialogTitle">Ignorare le modifiche</string>
+    <string name="discardChangesDialogMessage">Vuoi davvero ignorare queste modifiche?</string>
+    <string name="nullKidName">Non e\' stato specificato nessun nome o cognome per il bambino</string>
+
+    <string name="photoLoadingError">Problema nel caricare la foto</string>
+    <string name="photoSavingError">Problema nel salvare la foto sul telefono</string>
+
+    <string name="serverLabel">Indirizzo del Server</string>
+    <string name="updateLabel">Aggiorna</string>
+    <string name="serverNoUserRegisteredLabel">L\'utente non e\' registrato sul server. Le operazioni di download e upload non sono possibili al momento</string>
+    <string name="serverUserRegisteredLabel">L\'utente e\' registrato. Le operazioni di download e upload sono possibili</string>
+    <string name="serverRegisterNewUserButton">Registra un nuovo utente</string>
+    <string name="serverRegisterButton">Register</string>
+    <string name="noServerAddressError">Nessun indirizzo per il server e\' stato inserito. Specificarne uno prima di proseguire</string>
+    <string name="serverAddressUpdateError">Impossibile aggiornare l\'indirizzo del server</string>
+    <string name="serverAddressCorrectlyUpdated">L\'indirizzo del server e\' stato correttamente aggiornato</string>
+
+    <string name="confFileReadError">Impossibile caricare alcune informazioni di configurazione (indirizzo del server o info per l\'autenticazione)</string>
+    <string name="fileSaveError">Impossibile salvare il file</string>
+    <string name="configFileUpdateError">Impossibile aggionare il file di configurazione</string>
+
+    <string name="serverRegistrationUser">Utente</string>
+    <string name="serverRegistrationPassword">Password</string>
+    <string name="loginShowPassword">Mostra password</string>
+    <string name="registerUserSuccessful">Utente registrato con successo</string>
+    <string name="registerUserFailed">Impossibile registrare l\'utente con il server</string>
+    <string name="registerUserDialogTitle">Aspetta</string>
+    <string name="registerUserDialogExpl">Effettuando la registrazione dell\'utente con il server…</string>
+
+    <string name="noDownloadServerAddressError">Impossibile effettuare il download: l\'indirizzo del server non e\' stato settato. E\' necessario specificarlo nel menu "Configura" prima di continuare</string>
+    <string name="noDownloadSessionKeyError">Impossibile effettuare il download: nessuna sessione e\' stata aperta con il server. E\' necessario registrare un utente nel menu "Configura" prima di continuare</string>
+    <string name="noDownloadSchoolYearError">Impossibile effettuare il download: non e\' stata ricevuto dal server l\'anno scolastico attivo</string>
+    <string name="startDownloadAlert">Vuoi davvero scaricare le informazioni del server? Le informazioni salvate sul tuo telefono saranno sovrascritte. Per evitare di perderle, effettua l\'upload prima di procedere</string>
+    <string name="downloadSuccessful">Le informazioni dei bimbi sono state correttamente scaricate dal server</string>
+    <string name="imageDownloadFailed">Impossibile scaricare la foto del bimbo</string>
+    <string name="imageDownloadSuccessful">La foto del bimbo e\' stata scaricata con successo</string>
+    <string name="downloadResults">Numero di informazioni correttamente scaricate: </string>
+    <string name="downloadDialogTitle">Aspetta</string>
+    <string name="downloadDialogExpl">Effettuando il download delle informazioni del server…</string>
+
+    <string name="searchDialogTitle">Aspetta</string>
+    <string name="searchDialogExpl">Effettuando la ricerca delle informazioni sul database locale…</string>
+    <string name="noCurrentUserError">Nessun utente ha effettuato il login. Impossibile proseguire</string>
+    <string name="userNotLoggedInError">L\'utente non ha effettuato il login. Impossibile proseguire</string>
+
+    <string name="adoptionListLabel">LISTA DELLE ADOZIONI</string>
+
+    <string name="adoptionIdLabel">ID Adozione</string>
+    <string name="adoptionYearLabel">Anno</string>
+    <string name="adopterLabel">Adottante</string>
+
+    <string name="adoptionInfoLabel">INFO SULL\'ADOZIONE</string>
+    <string name="adPaymentIdLabel">ID del Pagamento</string>
+    <string name="adClassLabel">Classe</string>
+    <string name="adCodeLabel">Codice Adozione</string>
+    <string name="adSchoolIdLabel">Codice della Scuola</string>
+    <string name="adSchoolNameLabel">Nome della Scuola</string>
+    <string name="adSchoolCityLabel">Citta\' della Scuola</string>
+    <string name="adPrefixLabel">Prefisso Adozioni per la Scuola</string>
+    <string name="adopterIdLabel">ID dell\'Adottante</string>
+    <string name="adopterNameLabel">Adottante</string>
+
+    <string name="saveInfoDialogTitle">Aspetta</string>
+    <string name="saveInfoDialogExpl">Salvando le nuove info…</string>
+    <string name="dbUpdateSuccessful">I dati sono stati correttamente aggiornati</string>
+    <string name="dbUpdateFail">Impossibile aggionrare le informazioni</string>
+
+    <string name="backupFile">Dati salvati sul file: </string>
+    <string name="backupDialogTitle">Aspetta</string>
+    <string name="backupDialogExpl">Creando copia del database su file…</string>
+    <string name="backupFailed">Impossibile creare un backup dei dati</string>
+
+    <string name="searchAllTabTitle">Tutti</string>
+    <string name="searchKidInfoTabTitle">Bimbo</string>
+    <string name="searchAdoptionCodeTabTitle">Codice Adizione</string>
+    <string name="searchAdopterTabTitle">Adottante</string>
+    <string name="searchButtonLabel">Cerca</string>
+    <string name="searchKidNameLabel">Nome del Bimbo</string>
+    <string name="searchKidLastnameLabel">Cognome del bimbo</string>
+    <string name="searchKidNicknameLabel">Nickname del bimbo</string>
+    <string name="searchAdoptionCodeLabel">Codice Adozione</string>
+    <string name="searchAdopterFirstNameLabel">Nome dell\'adottante</string>
+    <string name="searchAdopterLastnameLabel">Cognome dell\'adottante</string>
+
+    <string name="createdDateLabel">Creato</string>
+
+    <string name="selectPicture">Scatta o Selezione una Foto</string>
+
+    <string name="loadedInfoMessage">Numbero di info caricate: </string>
+    <string name="loadDialogTitle">Aspetta</string>
+    <string name="loadDialogExpl">Caricando le info…</string>
+    <string name="storeInDBDialogExpl">Salvando le info sul telefono…</string>
+    <string name="loadFailed">Impossibile caricare le info</string>
+    <string name="selectFileMessage">Selezionare un File da Aprire</string>
+    <string name="noFileManagerError">E\' necessario installare un File Manager per proseguire</string>
+    <string name="startLoadAlert">Vuoi davvero caricare informazioni precedenti? Quelle correnti saranno sovrascritte. Per evitare di perderle, effettua l\'upload prima di procedere</string>
+
+    <string name="photoPreviewError">Impossibile caricare l\'immagine</string>
+
+    <string name="confirmDeleteKidInfo">Vuoi cancellare questo bimbo?</string>
+
+    <string name="deleteInfoDialogTitle">Aspetta</string>
+    <string name="deleteInfoDialogExpl">Cancellando le info…</string>
+    <string name="deleteSuccess">Info cancellate con successo</string>
+    <string name="deleteFailed">Impossibile cancellare le info</string>
+
+    <string name="btnBackup">Backup</string>
+    <string name="rbAllData">Tutti i dati</string>
+    <string name="rbBackupToday">Dati di oggi</string>
+    <string name="rbBackupSince">Dati da:</string>
+
+</resources>
