@@ -63,6 +63,7 @@
     <string name="photoSavingError">Problema nel salvare la foto sul telefono</string>
 
     <string name="serverLabel">Indirizzo del Server</string>
+    <string name="defaultServer">https://adozionitest.mambu.it/backend/</string>
     <string name="updateLabel">Aggiorna</string>
     <string name="serverNoUserRegisteredLabel">L\'utente non e\' registrato sul server. Le operazioni di download e upload non sono possibili al momento</string>
     <string name="serverUserRegisteredLabel">L\'utente e\' registrato. Le operazioni di download e upload sono possibili</string>
@@ -76,6 +77,8 @@
     <string name="fileSaveError">Impossibile salvare il file</string>
     <string name="configFileUpdateError">Impossibile aggionare il file di configurazione</string>
 
+    <string name="serverUpdateTab">Aggiorna Server</string>
+    <string name="newUserTab">Nuovo Utente</string>
     <string name="serverRegistrationUser">Utente</string>
     <string name="serverRegistrationPassword">Password</string>
     <string name="loginShowPassword">Mostra password</string>

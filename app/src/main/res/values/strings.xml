@@ -63,7 +63,10 @@
     <string name="photoLoadingError">Problem in loading the captured picture</string>
     <string name="photoSavingError">Problem in saving the captured picture on the device</string>
 
+    <string name="serverUpdateTab">Update Server</string>
+    <string name="newUserTab">New User</string>
     <string name="serverLabel">Server Address</string>
+    <string name="defaultServer">https://adozionitest.mambu.it/backend/</string>
     <string name="updateLabel">Update</string>
     <string name="serverNoUserRegisteredLabel">The user is not registered with the server. No download or upload possible at the moment</string>
     <string name="serverUserRegisteredLabel">The user is registered. Download and upload are possible</string>
@@ -166,5 +169,7 @@
     <string name="rbAllData">All data</string>
     <string name="rbBackupToday">Today\'s data</string>
     <string name="rbBackupSince">Data since:</string>
+    <string name="title_activity_config">ConfigActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

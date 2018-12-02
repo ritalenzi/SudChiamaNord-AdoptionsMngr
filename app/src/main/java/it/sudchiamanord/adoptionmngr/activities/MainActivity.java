@@ -1,5 +1,6 @@
 package it.sudchiamanord.adoptionmngr.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import it.sudchiamanord.adoptionmngr.R;
+import it.sudchiamanord.adoptionmngr.util.Utils;
 import it.sudchiamanord.adoptionmngr.util.scheleton.LifecycleLoggingActivity;
 import it.sudchiamanord.adoptionmngr.util.Tags;
 
