@@ -1,9 +1,6 @@
 package it.sudchiamanord.adoptionmngr.activities;
 
 import android.content.Context;
-import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -12,15 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -106,6 +102,112 @@ public class ConfigActivity extends AppCompatActivity
         }
     }
 
+    public void registerUser (View view)
+    {
+        Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
+                R.string.confFileReadError, this);
+        String serverAddress = properties.getProperty (Tags.SERVER_ADDRESS);
+        if (serverAddress == null) {
+            Toast.makeText (this, R.string.noServerAddressError, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        EditText userEditText = (EditText) view.findViewById (R.id.serverRegisterUser);
+        EditText passwordEditText = (EditText) view.findViewById (R.id.serverRegisterPassword);
+        CheckBox showPwCheckBox = (CheckBox) view.findViewById (R.id.serverRegisterShowPassword);
+
+
+
+
+
+
+        if (requestCode == Tags.REGISTER_USER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+//                mServerUserRegisteredImageView.setImageDrawable (getResources().getDrawable (
+//                        R.drawable.set2_ok_icon_64));
+//                mServerUserRegisteredTextView.setText (R.string.serverUserRegisteredLabel);
+                String user = data.getStringExtra (Tags.USER);
+                String pw = data.getStringExtra (Tags.PW);
+                String schoolYear = data.getStringExtra (Tags.SCHOOL_YEAR);
+
+                Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
+                        R.string.confFileReadError, this);
+
+                String currentUserProperty = null;
+                String currentPwProperty;
+                for (String property : properties.stringPropertyNames()) {
+                    if (properties.getProperty (property).equals (user)) {
+                        currentUserProperty = property;
+                        break;
+                    }
+                }
+                if (currentUserProperty != null) {
+                    String uuid = currentUserProperty.replace (Tags.USER, "");
+                    currentPwProperty = Tags.PW + uuid;
+                }
+                else {
+                    String uuid = UUID.randomUUID().toString();
+                    currentUserProperty = Tags.USER + uuid;
+                    currentPwProperty = Tags.PW + uuid;
+                }
+
+                properties.setProperty (currentUserProperty, user);
+                properties.setProperty (currentPwProperty, pw);
+                properties.setProperty (Tags.SCHOOL_YEAR, schoolYear);
+                Utils.updateConfig (new File (CONFIG_FILE), properties, this);
+            }
+            else if (resultCode == Tags.RESULT_REGISTER_USER_FAILED) {
+//                mServerUserRegisteredImageView.setImageDrawable (getResources().getDrawable (
+//                        R.drawable.set2_cancel_icon_64));
+//                mServerUserRegisteredTextView.setText (R.string.serverNoUserRegisteredLabel);
+                String user = data.getStringExtra (Tags.USER);
+
+                Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
+                        R.string.confFileReadError, this);
+
+                String currentUserProperty = null;
+                String currentPwProperty = null;
+                for (String property : properties.stringPropertyNames()) {
+                    if (properties.getProperty (property).equals (user)) {
+                        currentUserProperty = property;
+                        break;
+                    }
+                }
+                if (currentUserProperty != null) {
+                    String uuid = currentUserProperty.replace (Tags.USER, "");
+                    properties.remove (currentUserProperty);
+                    currentPwProperty = Tags.PW + uuid;
+                }
+                if (currentPwProperty != null) {
+                    properties.remove (currentPwProperty);
+                }
+
+                Utils.updateConfig (new File (CONFIG_FILE), properties, this);
+            }
+            else {
+                Log.d (TAG, "Cancelled Register User operation");
+            }
+        }
+
+    }
+
+    public void checkPasswordFormat (View view)
+    {
+        EditText passwordEditText = (EditText) view.findViewById (R.id.serverRegisterPassword);
+        CheckBox showPwCheckBox = (CheckBox) view.findViewById (R.id.serverRegisterShowPassword);
+
+        int start = passwordEditText.getSelectionStart();
+        int end = passwordEditText.getSelectionEnd();
+        if (showPwCheckBox.isChecked()) {
+            passwordEditText.setTransformationMethod (null);
+        }
+        else {
+            passwordEditText.setTransformationMethod (new PasswordTransformationMethod());
+        }
+        passwordEditText.setSelection (start, end);
+    }
+
 //    /**
 //     * A placeholder fragment containing a simple view.
 //     */
@@ -157,7 +259,7 @@ public class ConfigActivity extends AppCompatActivity
         public View onCreateView (LayoutInflater inflater, ViewGroup container,
                                   Bundle savedInstanceState)
         {
-            return inflater.inflate (R.layout.server_update_fragment_config, container, false);
+            return inflater.inflate (R.layout.server_update_fragment, container, false);
         }
 
         // This event is triggered soon after onCreateView().
@@ -184,6 +286,20 @@ public class ConfigActivity extends AppCompatActivity
         public void setServerAddress (String addr)
         {
             mServerAddrEditText.setText (addr);
+        }
+    }
+
+    public static class NewUserFragment extends Fragment
+    {
+        public NewUserFragment()
+        {
+        }
+
+        @Override
+        public View onCreateView (LayoutInflater inflater, ViewGroup container,
+                                  Bundle savedInstanceState)
+        {
+            return inflater.inflate (R.layout.new_user_fragment, container, false);
         }
     }
 
