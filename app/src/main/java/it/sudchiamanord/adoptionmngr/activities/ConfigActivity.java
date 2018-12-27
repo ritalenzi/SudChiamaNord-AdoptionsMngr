@@ -1,6 +1,7 @@
 package it.sudchiamanord.adoptionmngr.activities;
 
 import android.content.Context;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,24 +11,37 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.Properties;
+import java.util.UUID;
+import java.util.concurrent.Callable;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import it.sudchiamanord.adoptionmngr.R;
+import it.sudchiamanord.adoptionmngr.ops.mediator.Proxy;
+import it.sudchiamanord.adoptionmngr.ops.results.RegisterResult;
 import it.sudchiamanord.adoptionmngr.util.Tags;
 import it.sudchiamanord.adoptionmngr.util.Utils;
 
 public class ConfigActivity extends AppCompatActivity
 {
+    private static final String TAG = ConfigActivity.class.getSimpleName();
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -47,6 +61,8 @@ public class ConfigActivity extends AppCompatActivity
     private final int NEW_USER_FRAGMENT_IDX = 1;
 
     static final String CONFIG_FILE = "config.properties";
+
+    private DisposableObserver<RegisterResult> registerResultObserver;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -75,11 +91,26 @@ public class ConfigActivity extends AppCompatActivity
 
     }
 
-    public void updateServerAddress (View view)
+    @Override
+    protected void onDestroy()
+    {
+        Log.i (TAG, "Calling onDestroy");
+        super.onDestroy();
+        if ((registerResultObserver != null) && (!registerResultObserver.isDisposed())) {
+            registerResultObserver.dispose();
+        }
+    }
+
+    private void hideKeyboard (IBinder windowToken)
     {
         InputMethodManager mgr = (InputMethodManager) this.getSystemService (
                 Context.INPUT_METHOD_SERVICE);
-        mgr.hideSoftInputFromWindow (view.getWindowToken(), 0);
+        mgr.hideSoftInputFromWindow (windowToken, 0);
+    }
+
+    public void updateServerAddress (View view)
+    {
+        hideKeyboard (view.getWindowToken());
 
         EditText serverAddrEditText = (EditText) view.findViewById (R.id.serverEditText);
 
@@ -106,8 +137,8 @@ public class ConfigActivity extends AppCompatActivity
     {
         Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
                 R.string.confFileReadError, this);
-        String serverAddress = properties.getProperty (Tags.SERVER_ADDRESS);
-        if (serverAddress == null) {
+        final String serverAddress = properties.getProperty (Tags.SERVER_ADDRESS);
+        if ((serverAddress == null) || (serverAddress.isEmpty())) {
             Toast.makeText (this, R.string.noServerAddressError, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -116,80 +147,37 @@ public class ConfigActivity extends AppCompatActivity
         EditText userEditText = (EditText) view.findViewById (R.id.serverRegisterUser);
         EditText passwordEditText = (EditText) view.findViewById (R.id.serverRegisterPassword);
         CheckBox showPwCheckBox = (CheckBox) view.findViewById (R.id.serverRegisterShowPassword);
+        showPwCheckBox.setOnClickListener (this::checkPasswordFormat);  // Not sure this works....
+        ProgressBar progressBar = (ProgressBar) findViewById (R.id.serverRegisterProgressBar);
+        Button registerUserButton = (Button) findViewById (R.id.registerUserButton);
 
+        hideKeyboard (userEditText.getWindowToken());
+        hideKeyboard (passwordEditText.getWindowToken());
 
+        String user = userEditText.getText().toString();
+        String pw = passwordEditText.getText().toString();
 
-
-
-
-        if (requestCode == Tags.REGISTER_USER_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-//                mServerUserRegisteredImageView.setImageDrawable (getResources().getDrawable (
-//                        R.drawable.set2_ok_icon_64));
-//                mServerUserRegisteredTextView.setText (R.string.serverUserRegisteredLabel);
-                String user = data.getStringExtra (Tags.USER);
-                String pw = data.getStringExtra (Tags.PW);
-                String schoolYear = data.getStringExtra (Tags.SCHOOL_YEAR);
-
-                Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
-                        R.string.confFileReadError, this);
-
-                String currentUserProperty = null;
-                String currentPwProperty;
-                for (String property : properties.stringPropertyNames()) {
-                    if (properties.getProperty (property).equals (user)) {
-                        currentUserProperty = property;
-                        break;
-                    }
-                }
-                if (currentUserProperty != null) {
-                    String uuid = currentUserProperty.replace (Tags.USER, "");
-                    currentPwProperty = Tags.PW + uuid;
-                }
-                else {
-                    String uuid = UUID.randomUUID().toString();
-                    currentUserProperty = Tags.USER + uuid;
-                    currentPwProperty = Tags.PW + uuid;
-                }
-
-                properties.setProperty (currentUserProperty, user);
-                properties.setProperty (currentPwProperty, pw);
-                properties.setProperty (Tags.SCHOOL_YEAR, schoolYear);
-                Utils.updateConfig (new File (CONFIG_FILE), properties, this);
-            }
-            else if (resultCode == Tags.RESULT_REGISTER_USER_FAILED) {
-//                mServerUserRegisteredImageView.setImageDrawable (getResources().getDrawable (
-//                        R.drawable.set2_cancel_icon_64));
-//                mServerUserRegisteredTextView.setText (R.string.serverNoUserRegisteredLabel);
-                String user = data.getStringExtra (Tags.USER);
-
-                Properties properties = Utils.getProperties (this.getFileStreamPath (CONFIG_FILE),
-                        R.string.confFileReadError, this);
-
-                String currentUserProperty = null;
-                String currentPwProperty = null;
-                for (String property : properties.stringPropertyNames()) {
-                    if (properties.getProperty (property).equals (user)) {
-                        currentUserProperty = property;
-                        break;
-                    }
-                }
-                if (currentUserProperty != null) {
-                    String uuid = currentUserProperty.replace (Tags.USER, "");
-                    properties.remove (currentUserProperty);
-                    currentPwProperty = Tags.PW + uuid;
-                }
-                if (currentPwProperty != null) {
-                    properties.remove (currentPwProperty);
-                }
-
-                Utils.updateConfig (new File (CONFIG_FILE), properties, this);
-            }
-            else {
-                Log.d (TAG, "Cancelled Register User operation");
-            }
+        if ((user.isEmpty()) || (pw.isEmpty())) {
+            Toast.makeText (this, getString (R.string.nullUserAndPwMsg), Toast.LENGTH_SHORT).show();
+            return;
         }
 
+        Callable<RegisterResult> registerUserCallable = () -> {
+            Log.i (TAG, "Started register to server doInBackground");
+            return Proxy.doRegisterUser (user, pw, serverAddress);
+        };
+
+        registerResultObserver = getRegisterUserDisposableObserver();
+        Observable.fromCallable (registerUserCallable)
+                .subscribeOn (Schedulers.io())
+                .observeOn (AndroidSchedulers.mainThread())
+                .doOnSubscribe (disposable -> {
+                    progressBar.setVisibility(View.VISIBLE);
+                    registerUserButton.setEnabled (false);
+                    Log.i (TAG, "Progressbar set visible" );
+                })
+//                .subscribe (getRegisterUserDisposableObserver());
+                .subscribe (registerResultObserver);
     }
 
     public void checkPasswordFormat (View view)
@@ -208,44 +196,107 @@ public class ConfigActivity extends AppCompatActivity
         passwordEditText.setSelection (start, end);
     }
 
-//    /**
-//     * A placeholder fragment containing a simple view.
-//     */
-//    public static class PlaceholderFragment extends Fragment
-//    {
-//        /**
-//         * The fragment argument representing the section number for this
-//         * fragment.
-//         */
-//        private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//        public PlaceholderFragment()
-//        {
-//        }
-//
-//        /**
-//         * Returns a new instance of this fragment for the given section
-//         * number.
-//         */
-//        public static PlaceholderFragment newInstance (int sectionNumber)
-//        {
-//            PlaceholderFragment fragment = new PlaceholderFragment();
-//            Bundle args = new Bundle();
-//            args.putInt (ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments (args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public View onCreateView (LayoutInflater inflater, ViewGroup container,
-//                                  Bundle savedInstanceState)
-//        {
-//            View rootView = inflater.inflate (R.layout.fragment_config, container, false);
-//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//            return rootView;
-//        }
-//    }
+    private DisposableObserver<RegisterResult> getRegisterUserDisposableObserver()
+    {
+        return new DisposableObserver<RegisterResult>()
+        {
+            ProgressBar progressBar = (ProgressBar) findViewById (R.id.serverRegisterProgressBar);
+            Button button = (Button) findViewById (R.id.registerUserButton);
+
+            @Override
+            public void onComplete()
+            {
+                Log.i (TAG, "OnComplete");
+                progressBar.setVisibility (View.INVISIBLE);
+                button.setEnabled (true);
+                Log.i (TAG, "Hiding Progressbar");
+            }
+
+            @Override
+            public void onError (Throwable e)
+            {
+                Log.i (TAG, "OnError");
+                progressBar.setVisibility (View.INVISIBLE);
+                button.setEnabled (true);
+                Log.i (TAG, "Hiding Progressbar");
+            }
+
+            @Override
+            public void onNext (RegisterResult result)
+            {
+                Log.i (TAG, "onNext");
+                if (result == null) {
+                    Log.d (TAG, "Cancelled Register User operation");
+                    return;
+                }
+
+                if (result.getUser() == null) {
+                    Log.e (TAG, "Null user in the register user result - Ignoring");
+                    return;
+                }
+
+                if (result.isSuccessful()) {
+                    if ((result.getPw() == null) || (result.getSchoolYear() == null)) {
+                        Log.e (TAG, "Null password or school year in the register user result - Ignoring");
+                        return;
+                    }
+
+                    Properties properties = Utils.getProperties (
+                            getApplicationContext().getFileStreamPath (CONFIG_FILE),
+                            R.string.confFileReadError, getApplicationContext());
+
+                    String currentUserProperty = null;
+                    String currentPwProperty;
+                    for (String property : properties.stringPropertyNames()) {
+                        if (properties.getProperty (property).equals (result.getUser())) {
+                            currentUserProperty = property;
+                            break;
+                        }
+                    }
+                    if (currentUserProperty != null) {
+                        String uuid = currentUserProperty.replace (Tags.USER, "");
+                        currentPwProperty = Tags.PW + uuid;
+                    }
+                    else {
+                        String uuid = UUID.randomUUID().toString();
+                        currentUserProperty = Tags.USER + uuid;
+                        currentPwProperty = Tags.PW + uuid;
+                    }
+
+                    properties.setProperty (currentUserProperty, result.getUser());
+                    properties.setProperty (currentPwProperty, result.getPw());
+                    properties.setProperty (Tags.SCHOOL_YEAR, result.getSchoolYear());
+                    Utils.updateConfig (new File (CONFIG_FILE), properties, getApplicationContext());
+                }
+                else {
+//                    String user = data.getStringExtra (Tags.USER);
+
+                    Properties properties = Utils.getProperties (
+                            getApplicationContext().getFileStreamPath (CONFIG_FILE),
+                            R.string.confFileReadError, getApplicationContext());
+
+                    String currentUserProperty = null;
+                    String currentPwProperty = null;
+                    for (String property : properties.stringPropertyNames()) {
+                        if (properties.getProperty (property).equals (result.getUser())) {
+                            currentUserProperty = property;
+                            break;
+                        }
+                    }
+                    if (currentUserProperty != null) {
+                        String uuid = currentUserProperty.replace (Tags.USER, "");
+                        properties.remove (currentUserProperty);
+                        currentPwProperty = Tags.PW + uuid;
+                    }
+                    if (currentPwProperty != null) {
+                        properties.remove (currentPwProperty);
+                    }
+
+                    Utils.updateConfig (new File (CONFIG_FILE), properties, getApplicationContext());
+                }
+            }
+        };
+    }
 
     public static class ServerUpdateFragment extends Fragment
     {

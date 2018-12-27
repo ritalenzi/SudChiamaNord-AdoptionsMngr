@@ -2,10 +2,6 @@ package it.sudchiamanord.adoptionmngr.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.view.View;
 import android.util.Log;
@@ -85,24 +81,24 @@ public class MainActivity extends LifecycleLoggingActivity
                 break;
 
 
-            case R.id.action_backup:
-//                if (!checkLogin()) {  // TODO: ADD THIS BACK
+//            case R.id.action_backup:
+////                if (!checkLogin()) {  // TODO: ADD THIS BACK
+////                    return true;
+////                }
+//
+//                Intent intent = new Intent (this, BackupActivity.class);
+//                intent.putExtra (Tags.CURRENT_USER, mUser);
+//                startActivity (intent);
+//                break;
+
+//            case R.id.action_load:
+//                if (!checkLogin()) {
 //                    return true;
 //                }
-
-                Intent intent = new Intent (this, BackupActivity.class);
-                intent.putExtra (Tags.CURRENT_USER, mUser);
-                startActivity (intent);
-                break;
-
-            case R.id.action_load:
-                if (!checkLogin()) {
-                    return true;
-                }
-
-                startActivity (new Intent (this, LoadActivity.class));
-
-                break;
+//
+//                startActivity (new Intent (this, LoadActivity.class));
+//
+//                break;
         }
 
         return true;
@@ -119,7 +115,7 @@ public class MainActivity extends LifecycleLoggingActivity
 
     public void login (View view)
     {
-        startActivityForResult (new Intent (this, LoginActivity.class), Tags.LOGIN_REQUEST);
+//        startActivityForResult (new Intent (this, LoginActivity.class), Tags.LOGIN_REQUEST);
     }
 
 //    public void configure (View view)
@@ -129,35 +125,35 @@ public class MainActivity extends LifecycleLoggingActivity
 
     public void add (View view)
     {
-        if (!checkLogin()) {
-            return;
-        }
-
-        Intent intent = new Intent (this, KidInfoActivity.class);
-        intent.putExtra (Tags.CURRENT_USER, mUser);
-        startActivity (intent);
+//        if (!checkLogin()) {
+//            return;
+//        }
+//
+//        Intent intent = new Intent (this, KidInfoActivity.class);
+//        intent.putExtra (Tags.CURRENT_USER, mUser);
+//        startActivity (intent);
     }
 
     public void search (View view)
     {
-        if (!checkLogin()) {
-            return;
-        }
-
-        Intent intent = new Intent (this, SearchActivity.class);
-        intent.putExtra (Tags.CURRENT_USER, mUser);
-        startActivity (intent);
+//        if (!checkLogin()) {
+//            return;
+//        }
+//
+//        Intent intent = new Intent (this, SearchActivity.class);
+//        intent.putExtra (Tags.CURRENT_USER, mUser);
+//        startActivity (intent);
     }
 
     public void download (View view)
     {
-        if (!checkLogin()) {
-            return;
-        }
-
-        Intent intent = new Intent (this, DownloadActivity.class);
-        intent.putExtra (Tags.CURRENT_USER, mUser);
-        startActivity (intent);
+//        if (!checkLogin()) {
+//            return;
+//        }
+//
+//        Intent intent = new Intent (this, DownloadActivity.class);
+//        intent.putExtra (Tags.CURRENT_USER, mUser);
+//        startActivity (intent);
     }
 
     public void upload (View view)

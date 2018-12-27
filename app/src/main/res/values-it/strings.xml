@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SchoolMgr</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="title_activity_config">Config Activity</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_edit">Modifica</string>
     <string name="action_save_changes">Salva le modifiche</string>

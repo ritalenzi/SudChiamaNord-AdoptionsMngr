@@ -163,36 +163,31 @@ public class Utils
         new AlertDialog.Builder (context)
                 .setTitle (R.string.generalError)
                 .setMessage (messageCode)
-                .setPositiveButton (android.R.string.ok, new DialogInterface.OnClickListener()
-                {
-                    public void onClick (DialogInterface dialog, int which)
-                    {
-                    }
-                })
+                .setPositiveButton (android.R.string.ok, (dialog, which) -> {})
                 .setIcon (android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
-//    public static String convertStreamToString (InputStream is)
-//    {
-//        BufferedReader reader = new BufferedReader (new InputStreamReader(is));
-//        StringBuilder sb = new StringBuilder();
-//
-//        String line;
-//        try {
-//            while ((line = reader.readLine()) != null) {
-//                sb.append (line).append ('\n');
-//            }
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        finally {
-//            close (is);
-//        }
-//        return sb.toString();
-//    }
+    public static String convertStreamToString (InputStream is)
+    {
+        BufferedReader reader = new BufferedReader (new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append (line).append ('\n');
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            close (is);
+        }
+        return sb.toString();
+    }
 
 //    public static boolean insert (Context context, KidInfo kidInfo)
 //    {

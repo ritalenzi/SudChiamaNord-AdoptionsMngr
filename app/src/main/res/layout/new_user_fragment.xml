@@ -50,9 +50,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/loginButton"
-        android:id="@+id/loginButton"
+        android:id="@+id/registerUserButton"
         android:onClick="registerUser"
         android:layout_below="@+id/serverRegisterShowPassword"
         android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/serverRegisterProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignBottom="@+id/serverRegisterShowPassword" />
 
 </RelativeLayout>
